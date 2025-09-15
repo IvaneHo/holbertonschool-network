@@ -1,3 +1,13 @@
 #!/usr/bin/env bash
-# display all ipv4 and no the ipv6 if the ifconfig file 
-ip -4 addr show | grep inet | awk '{print $2}' | cut -d/ -f1
+# Displays all active IPv4 IPs on the machine it's executed on
+
+# Using ifconfig if available
+if command -v ifconfig &> /dev/null; then
+    ifconfig | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | cut -b 5- | tr -d ' '
+# Using ip command as alternative 
+elif command -v ip &> /dev/null; then
+    ip -4 addr show | grep -Eo "inet ([0-9]*\.){3}[0-9]*" | cut -b 5- | tr -d ' '
+# Fallback method
+else
+    hostname -I | tr ' ' '\n' | grep -v ':'
+fi 

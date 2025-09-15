@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Listens on port 98 on localhost
+# It displays any text received on port 98
+
+nc -l localhost 98 
