@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to change localhost and facebook.com IP resolution
+# Configures an Ubuntu server with specific requirements:
 # - localhost resolves to 127.0.0.2
 # - facebook.com resolves to 8.8.8.8
 
