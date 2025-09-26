@@ -1,0 +1,55 @@
+# What happens when you type https://www.google.com in your browser and press Enter?
+
+When you press Enter after typing https://www.google.com in your browser, a long chain of events happens behind the scenes. Here is the journey step by step:
+
+## 1. DNS request
+Your browser first needs to know the IP address of www.google.com.  
+- It checks its local cache.  
+- If not found, it asks your operating system.  
+- If still not found, the DNS resolver (ISP or public like 8.8.8.8) queries the DNS hierarchy until it finds the authoritative record for www.google.com.  
+- The final result is an IP address, e.g. 142.250.xxx.xxx.
+
+## 2. TCP/IP
+Now that your browser knows the IP, it establishes a connection.  
+- A TCP three-way handshake (SYN → SYN/ACK → ACK) ensures a reliable channel.  
+- This happens on top of the IP protocol, which handles addressing and routing.
+
+## 3. Firewall
+Your packets pass through several firewalls: your machine, your router/ISP, and Google’s infrastructure.  
+Firewalls only allow authorized traffic, e.g. port 443 for HTTPS.
+
+## 4. HTTPS / SSL
+Because you typed **https://**, the connection is encrypted.  
+- Your browser and Google’s server perform a TLS handshake.  
+- Google sends its SSL/TLS certificate, signed by a trusted Certificate Authority.  
+- Once verified, the browser and server agree on encryption keys for secure communication.
+
+## 5. Load balancer
+Your request first reaches a Google load balancer.  
+- The load balancer distributes traffic across many backend servers.  
+- This ensures high availability, scalability, and efficiency.
+
+## 6. Web server
+The load balancer forwards the request to a web server.  
+- The web server serves static files (HTML, CSS, JS, images).  
+- For dynamic content, it forwards the request to an application server.
+
+## 7. Application server
+The application server processes the business logic.  
+- It decides what data to fetch and what response to generate.  
+- For example, it may personalize your homepage.
+
+## 8. Database
+If data is needed (like your account settings), the application server queries a database.  
+- The database stores and returns structured information.  
+- The application server uses the result to build the response.
+
+## 9. Response
+Finally, the response flows back:  
+Application server → Web server → Load balancer → Encrypted connection → Your browser.  
+Your browser receives the HTML, CSS, and JavaScript, then renders Google’s homepage.
+
+---
+
+## Conclusion
+A simple action like pressing Enter triggers DNS resolution, TCP/IP communication, firewall checks, SSL encryption, load balancing, web servers, application servers, and databases — all in less than a second. This complexity is what makes the modern web reliable, fast, and secure.
